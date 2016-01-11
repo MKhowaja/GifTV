@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>GifTV</title>
+		<link rel="stylesheet" href="/assets/font.css">
+		<link rel="stylesheet" href="/assets/display.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="image one">
+			<div class="flash"></div>
+			<span class="timer"></span>
+		</div>
+		<div class="image two">
+			<div class="flash"></div>
+			<span class="timer"></span>
+		</div>
+		<div class="image three">
+			<div class="flash"></div>
+			<span class="timer"></span>
+		</div>
+		<div class="image four">
+			<div class="flash"></div>
+			<span class="timer"></span>
+		</div>
+		<div class="qr_code">
+			<div class="inner">
+				<span>Scan to Control</span>
+				<img src='https://chart.googleapis.com/chart?cht=qr&chl=localhost&chs=180x180&choe=UTF-8&chld=L|2' rel='nofollow' alt='qr code'>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+	<script>
+	var serverAddress = "http://localhost/",
+		socket = io(serverAddress),
+		list = ["one", "two", "three", "four"],
+		oneCounter,
+		twoCounter,
+		threeCounter,
+		fourCounter,
+		oneInterval,
+		twoInterval,
+		threeInterval,
+		fourInterval,
+		gifInterval = 5;
+
+	socket.on('zapped', function(response) {
+		window[response.data + "Counter"] = gifInterval;
+		$("." + response.data + " .flash").fadeIn(80).delay(50).fadeOut(300);
+		$("." + response.data + " .timer").html(gifInterval);
+	});
+
+	function oneTimer() {
+		console.log("ONE: New URL Loaded");
+		$.get("/gimme", function(data) {
+			console.log(data);
+			$(".one").css("background-image", "url(" + data + ")");
+		});
+		oneCounter = gifInterval;
+		$(".one .timer").html(oneCounter.toString());
+		oneInterval = setInterval(function() {
+			oneCounter--;
+			if (oneCounter <= 5) {
+				// show timer
+				$(".one .timer").html(oneCounter.toString());
+
+				if (oneCounter == 0) {
+					// get new URL
+					clearInterval(oneInterval);
+					oneTimer();
+				}
+			}
+		}, 1000);
+	}
+
+	function twoTimer() {
+		console.log("TWO: New URL Loaded");
+		$.get("/gimme", function(data) {
+			console.log(data);
+			$(".two").css("background-image", "url(" + data + ")");
+		});
+		twoCounter = gifInterval;
+		$(".two .timer").html(twoCounter.toString());
+		twoInterval = setInterval(function() {
+			twoCounter--;
+			if (twoCounter <= 5) {
+				// show timer
+				$(".two .timer").html(twoCounter.toString());
+
+				if (twoCounter == 0) {
+					// get new URL
+					clearInterval(twoInterval);
+					twoTimer();	
+				}
+			}
+		}, 1000);
+	}
+
+	function threeTimer() {
+		console.log("THREE: New URL Loaded");
+		$.get("/gimme", function(data) {
+			console.log(data);
+			$(".three").css("background-image", "url(" + data + ")");
+		});
+		threeCounter = gifInterval;
+		$(".three .timer").html(threeCounter.toString());
+		threeInterval = setInterval(function() {
+			threeCounter--;
+			if (threeCounter <= 5) {
+				// show timer
+				$(".three .timer").html(threeCounter.toString());
+
+				if (threeCounter == 0) {
+					// get new URL
+					clearInterval(threeInterval);
+					threeTimer();
+				}
+			}
+		}, 1000);
+	}
+
+	function fourTimer() {
+		console.log("FOUR: New URL Loaded");
+		$.get("/gimme", function(data) {
+			console.log(data);
+			$(".four").css("background-image", "url(" + data + ")");
+		});
+		fourCounter = gifInterval;
+		$(".four .timer").html(fourCounter.toString());
+		fourInterval = setInterval(function() {
+			fourCounter--;
+			if (fourCounter <= 5) {
+				// show timer
+				$(".four .timer").html(fourCounter.toString());
+
+				if (fourCounter == 0) {
+					// get new URL
+					clearInterval(fourInterval);
+					fourTimer();	
+				}
+			}
+		}, 1000);
+	}
+
+	oneTimer();
+	twoTimer();
+	threeTimer();
+	fourTimer();
+	</script>
+</html>

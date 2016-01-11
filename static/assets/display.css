@@ -1,0 +1,91 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+*, body {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: black;
+	font-size: 0;
+}
+
+.image {
+	display: inline-block;
+	width: 50%;
+	height: 50%;
+	background-size: 100% 100%;
+	position: relative;
+}
+
+.timer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: rgb(255, 255, 255);
+	font-weight: 700;
+	font-family: "PT Sans", sans-serif;
+	font-size: 60px;
+	padding: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.flash {
+	position: absolute;
+	z-index: 1;
+	background-color: rgb(255, 255, 255);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+}
+
+.qr_code {
+	display: block;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.25);
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.inner {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: block;
+}
+
+.qr_code span {
+	display: block;
+	text-transform: uppercase;
+	font-family: "PT Sans", sans-serif;
+	color: rgb(255, 255, 255);
+	background-color: rgb(235, 155, 55);
+	font-size: 18px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	font-weight: 600;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+@keyframes float {
+	0% {
+		bottom: 20px;
+	}
+	50% {
+		bottom: 30px;
+	}
+	100% {
+		bottom: 20px;
+	}
+}
